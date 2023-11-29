@@ -17,18 +17,23 @@ namespace MyApp
 
             input = inputtext.ToCharArray();
 
-            foreach (char i in input)
+            for (int i = 0; i < input.Length; i++)
             {
-                if (i == '(')
+                if (input[i] == '(')
                 {
                     floor++;
-                }else
+                }
+                else
                 {
                     floor--;
                 }
-            }
 
-            Console.WriteLine("Santa is in Floor : {0}",floor); // Answer is '138'
+                if (floor == -1)
+                {
+                    System.Console.WriteLine("position of character is : {0}", i+1); // answer is 1771.
+                    return;
+                }
+            }
         }
     }
 }
