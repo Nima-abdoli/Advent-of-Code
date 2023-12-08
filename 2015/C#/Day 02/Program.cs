@@ -11,8 +11,9 @@ namespace Day02
             List<Box> boxes = new List<Box>();
             string FilePath = "Input Day02-1.txt";
             int i = 0;
-            int totalpaper = 0;
+            //int totalpaper = 0;
             int totalpaperextra = 0;
+            int TotalRibbon = 0;
 
             foreach (string item in File.ReadLines(FilePath))
             {
@@ -21,17 +22,14 @@ namespace Day02
 
                 boxes.Add(box);
                 totalpaperextra += boxes[i].totalArea;
-                totalpaper += boxes[i].area;
+                TotalRibbon += boxes[i].RibbonNeed;
 
-                //System.Console.WriteLine("{0} - Firstbox total area is : {1} and total need is : {2} ",i,boxes[i].totalArea,totalpaperextra);
                 i++;
                 
-
             }
 
-            System.Console.WriteLine("-----------------------------------------------------\nTotal paper wrap need is : {0}",totalpaper);
-            System.Console.WriteLine("\nTotal paper wrap with extra need is : {0}\n",totalpaperextra); // Part one Answear is "1588178"
-            
+            Console.WriteLine("\nTotal paper wrap with extra need is : {0}\n",totalpaperextra); // Part one Answear is "1588178"
+            Console.WriteLine("\nTotal Ribbon need is : {0}",TotalRibbon); // Part two Answear is "3783758"
 
         }
 
@@ -43,6 +41,7 @@ namespace Day02
             public int area;
             public int Smallest;
             public int totalArea;
+            public int RibbonNeed;
 
             public Box(string s)
             {
@@ -52,6 +51,7 @@ namespace Day02
                 height = int.Parse(strings[2]);
                 area = AreaCalculate();
                 Smallest = SmallestFind();
+                RibbonNeed = RibonNeed();
                 totalArea = area + Smallest;
             }
 
@@ -66,6 +66,14 @@ namespace Day02
                 int[] sm = { Lenght*width , width*height , height*Lenght };
 
                 return sm.Min();
+            }
+
+            private int RibonNeed()
+            {
+                int[] sm = {Lenght,width,height};
+                Array.Sort(sm);
+
+                return (Lenght*width*height)+(sm[0]+sm[1]+sm[0]+sm[1]);
             }
         }
     
